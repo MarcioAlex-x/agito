@@ -4,5 +4,3 @@ __pycahe__
 venv
 db.sqlite
 .DS_Store
-/media
-/static

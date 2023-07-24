@@ -1,7 +1,6 @@
 *.pyc
 *~
 __pycahe__
-venv
 db.sqlite
 .DS_Store
 /media

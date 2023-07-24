@@ -1,0 +1,138 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+
+    <div class="row  my-5">
+        <!-- Pesquisa -->
+        <div class="busca d-flex align-items-center" >
+            <form method="GET" id="busca-form" class="d-flex align-items-center w-100">
+
+                <ion-icon name="search-outline" id="lupa" class="lupa-lg me-3 fs-4"></ion-icon>
+                
+                <input type="text" name="search" class="form-control my-5" placeholder="Encontre um evento" autocomplete="off">
+                
+                <a href="{% url 'index' %}">
+                    <ion-icon name="close-outline" id="limpar" class="ms-3 fs-4"></ion-icon>
+                </a>
+            </form>
+            <!-- Final das pesquisas -->
+        </div>
+
+        <div class="col-12 col-lg-9 text-center">
+            
+
+            <!-- Início da Lista -->
+          
+            {% for post in page.object_list %}
+            <div class="row my-2">
+                <!-- Coluna da imagem -->
+                <h2>
+                    <a href="{% url 'detalhes_post' id=post.id %}"  class="fs-3 titulo-sm">
+                        {{ post.titulo }}
+                    </a>
+                </h2>
+                <div class="col-md-4 col-12">
+                    <a href="{% url 'detalhes_post' id=post.id %}">
+                        <!-- Imagem -->
+                        <img class="w-100 rounded" src="{{ post.imagem_post.url }}" alt="">
+                    </a>
+                </div>
+                <!-- Coluna dos conteudos de apresentação -->
+                <div class="col-lg-8 col-12 d-flex flex-column align-items-start text-start ">
+                    <!-- Subtitulo da página -->
+                    <span class="mb-4">
+                        {{post.categoria}}
+                    </span>
+                    <h2>
+                        <a href="{% url 'detalhes_post' id=post.id %}"  class="fs-3 titulo-md">
+                            {{ post.titulo }}
+                        </a>
+                    </h2>
+                    
+                    <!-- Resumo -->
+                    <p>{{ post.resumo }}</p>
+                    <p >
+                        Publicado em: {{ post.published_date }}
+                    </p>
+                    
+                </div>
+                
+            </div>
+            <hr>
+            {% endfor %}
+
+
+            <!-- Paginação -->
+
+            <div class="page_links">
+                {% if page.has_previous %}
+                    <a href="{% url 'index' %}?page={{page.previous_page_number}} ">Anterior</a>
+                {% endif %}
+
+                {% if page.has_next %}
+                    <a href="{% url 'index' %}?page={{page.next_page_number}} ">Próxima</a>
+                {% endif %}
+            </div>
+            <!-- Final da Paginação -->
+
+            <!-- Final da Lista -->
+           
+        </div>
+
+        <!-- Coluna do ASIDE -->
+        <div class="col-lg-3 ps-2 d-flex flex-column">
+
+            <!-- Menu -->
+            <div class="aside menu">
+                <h3 class="aside-titulo">
+                    Menu
+                </h3>
+                <hr>
+                <ul class="list-unstyled ms-2">
+                    
+                    <li>Materias</li>
+                    <li>Locais</li>
+                    <li>Sobre</li>
+                    <li>Contato</li>
+                    <!-- Lista de categorias -->
+                    {% for categoria in categorias %}
+                    <li>{{ categoria.nome }}</li>
+                    {% endfor %}
+                    <!-- Fim da lista de categorias -->
+    
+                </ul>
+            </div>
+            <!-- Fim do Menu -->
+            
+            <!-- Redes Sociais -->
+            <div class="network aside">
+                <h3 class="aside-titulo">Redes Sociais</h3>
+                <hr>
+                <div class="redes d-flex justify-content-evenly">
+                    <ion-icon name="logo-instagram" class="fs-3"></ion-icon>
+                    <ion-icon name="logo-facebook" class="fs-3"></ion-icon>
+                    <ion-icon name="logo-youtube" class="fs-3"></ion-icon>
+                    <ion-icon name="logo-twitter" class="fs-3"></ion-icon>
+                </div>
+            </div>
+            <!-- Fim das Redes Sociais -->
+            <!-- Ultimos POSTS -->
+            <div class="aside ultimos-posts">
+                <h3 class="aside-titulo">Ultimos Posts</h3>
+                
+                <hr>
+                {% for post in posts %}
+                    <ul class=" list-unstyled">
+                        <li class="text-monospace">
+                            <a href="{% url 'detalhes_post' id=post.id %}" class="d-flex flex-column">
+                                {{post.titulo}} 
+                                <br> 
+                            </a>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+            <!-- Fim dos Ultimos POSTS -->
+            
+        </div>
+        
+{% endblock %}

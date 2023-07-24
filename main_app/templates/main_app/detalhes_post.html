@@ -1,0 +1,30 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+
+<div class="row d-flex align-items-center my-5">
+
+    <p class="text-start order-1">Publicação de {{ post.published_date }}</p>
+</div>
+<div class="row">
+
+    <div class="col-12 col-md-6 offset-md-3">
+        <h2 class="display-3 mb-5">{{ post.titulo }}</h2>
+        <span>Categoia: {{ post.categoria }}</span>
+        <div class="div-img">
+            <img class="img-thumbnail w-100 mt-5" src="{{post.imagem_post.url}}" alt="imagem de {{post.titulo}}">
+        
+            <p>Autor do post: {{ post.autor }}</p>
+            <p>Imagens de {{ post.imagens_de }}</p>
+        </div>
+        <!-- Fim dos Créditos -->
+    
+  
+        <p class="mt-5">{{ post.conteudo|safe }}</p>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
